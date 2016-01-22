@@ -1,6 +1,6 @@
 # HasArchive
 
-This project was born out of frustration with all the options I've found so far for archiving non-current ActiveRecord backed records, so I'm going to give it a go. 
+This project was born out of frustration with all the options I've found so far for archiving non-current ActiveRecord backed records, so I'm going to give it a go. The initial target will be Rails 4 (point two-ish) on Postgres, and if it goes somewhere, I will begin looking at what else we can support.
 
 ## Installation
 
