@@ -1,5 +1,6 @@
 require "has_archive/version"
 require "has_archive/hook"
+require "has_archive/migration_manager"
 require "has_archive/railtie" if defined?(Rails)
 
 module HasArchive
@@ -15,8 +16,8 @@ module HasArchive
   end
 
   module ClassMethods
-    def archived
-      # i can haz archived records??
+    def archive
+      self::Archive
     end
   end
 
