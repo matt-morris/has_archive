@@ -1,7 +1,7 @@
 require "has_archive/version"
+require "has_archive/railtie" if defined?(Rails)
 require "has_archive/hook"
 require "has_archive/migration_manager"
-require "has_archive/railtie" if defined?(Rails)
 
 module HasArchive
   def self.included(base)
@@ -23,8 +23,19 @@ module HasArchive
 
   module InstanceMethods
     def archive
-      archived_at = Time.now
-      save
+      archive = self.class::Archive.new(self.attributes)
+      archive.archived_at = Time.now
+      archive.save
+      self.destroy(for_real: true)
+    end
+
+    def destroy(for_real: false)
+      if !for_real && Rails.configuration.has_archive.override_destroy
+        # puts "destroy has been overridden..."
+        archive
+      else
+        super()
+      end
     end
   end
 end
