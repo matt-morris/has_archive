@@ -1,6 +1,10 @@
 # HasArchive
 
-This project was born out of frustration with all the options I've found so far for archiving non-current ActiveRecord backed records, so I'm going to give it a go. The initial target will be Rails 4 (point two-ish) on Postgres, and if it goes somewhere, I will begin looking at what else we can support.
+This project was born out of frustration with all the options I've found so far for archiving non-current ActiveRecord backed models, so I'm going to give it a go. The initial target will be Rails 4 (point two-ish) on Postgres, and if it goes somewhere, I will begin looking at what else we can support.
+
+[![Gem Version](https://badge.fury.io/rb/has_archive.svg)](https://badge.fury.io/rb/has_archive)
+
+Please halp. This is far from ready, but if this seems like a useful/worthwhile project to you, please feel free to dig and lend a hand.
 
 ## Installation
 
@@ -20,7 +24,19 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Halp. This is ready for nothing, so far, but if this seems like a useful/worthwhile project to you, please feel free to dig and lend a hand.
+### Setup
+
+1. First, create your archive tables for any models you wish to make archivable. There is a utility method (`HasArchive::MigrationManager.create_archive_for`) to help generate the starting migrations. It must match the columns for the archivable model, plus add an `archived_at` datetime field.
+
+2. Call `has_archive` in your models.
+
+### Archive Controls
+
+Access the archive model directly with `ModelName::Archive`, or use the class method `archived` to union live and archived records.
+
+Archive a record by calling `archive` on it. Optionally, `destroy` may be overridden to work as a "soft delete" by setting `Rails.configuration.has_archive.override_destroy` to `true`.
+
+An archived record may be returned to the main table by calling `restore` on it.
 
 ## Development
 

@@ -11,13 +11,22 @@ module HasArchive
     eval <<-EVAL
       class #{base}::Archive < #{base}
         self.table_name = "#{base.to_s.underscore}_archives"
+
+        def restore
+          attrs = self.attributes
+          attrs.delete('archived_at')
+          restored = self.class.parent.new(attrs)
+          restored.save && self.destroy(for_real: true)
+          self
+        end
       end
     EVAL
   end
 
   module ClassMethods
-    def archive
-      self::Archive
+    def archived
+      union = self.unscoped.union(self::Archive.unscoped.select(self.attribute_names.map(&:to_sym)))
+      self.from(self.arel_table.create_table_alias(union, self.table_name.to_sym).to_sql)
     end
   end
 
@@ -31,7 +40,6 @@ module HasArchive
 
     def destroy(for_real: false)
       if !for_real && Rails.configuration.has_archive.override_destroy
-        # puts "destroy has been overridden..."
         archive
       else
         super()
