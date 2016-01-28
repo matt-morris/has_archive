@@ -44,9 +44,9 @@ MIGRATION
 
     def self.build_index(i)
       # unique  = i.unique ? ', unique: true' : ''
-      columns = i.columns.one? ? i.columns.first : i.columns
+      columns = i.columns.one? ? ":#{i.columns.first}" : i.columns.map(&:to_sym)
       # "    add_index :#{@table_name}, :#{columns}#{unique}"
-      "    add_index :#{@table_name.singularize}_archives, :#{columns}"
+      "    add_index :#{@table_name.singularize}_archives, #{columns}"
     end
 
     def self.file_name(action)
