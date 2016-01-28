@@ -34,7 +34,7 @@ module HasArchive
     def archive
       archive = self.class::Archive.new(self.attributes)
       archive.archived_at = Time.now
-      archive.save
+      archive.save(validate: false)
       self.destroy(for_real: true)
     end
 
