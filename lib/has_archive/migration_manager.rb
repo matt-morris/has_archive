@@ -39,7 +39,7 @@ MIGRATION
 
     def self.build_column(c)
       limit = c.limit ? ",        limit: #{c.limit}" : ''
-      "      t.#{c.type}#{' ' * (12 - c.type.size)}:#{c.name[0, 63]}#{limit}"
+      "      t.#{c.type}#{' ' * (12 - c.type.size)}:#{c.name}#{limit}"
     end
 
     def self.build_index(i)
