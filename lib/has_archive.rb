@@ -1,7 +1,6 @@
 require "has_archive/version"
 require "has_archive/railtie" if defined?(Rails)
 require "has_archive/hook"
-require "has_archive/migration_manager"
 
 module HasArchive
   def self.included(base)
