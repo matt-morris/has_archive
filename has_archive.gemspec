@@ -12,6 +12,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{Add archives to your ActiveRecord models}
   spec.description   = %q{Add archives to your ActiveRecord models}
   spec.homepage      = "http://github.com/matt-morris/has_archive"
+  spec.licenses      = ["MIT"]
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = "exe"
