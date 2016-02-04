@@ -3,6 +3,7 @@
 This project was born out of frustration with all the options I've found so far for archiving non-current ActiveRecord backed models, so I'm going to give it a go. The initial target will be Rails 4 (point two-ish) on Postgres, and if it goes somewhere, I will begin looking at what else we can support.
 
 [![Gem Version](https://badge.fury.io/rb/has_archive.svg)](https://badge.fury.io/rb/has_archive)
+[![Code Climate](https://codeclimate.com/github/matt-morris/has_archive/badges/gpa.svg)](https://codeclimate.com/github/matt-morris/has_archive)
 
 Please halp. This is far from ready, but if this seems like a useful/worthwhile project to you, please feel free to dig and lend a hand.
 
