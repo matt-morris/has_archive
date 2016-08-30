@@ -7,7 +7,7 @@ module HasArchive
     base.send :extend, ClassMethods
     base.send :include, InstanceMethods
 
-    eval <<-EVAL
+    eval <<-RUBY
       class #{base}::Archive < #{base}
         self.table_name = "#{base.to_s.underscore}_archives"
 
@@ -19,7 +19,7 @@ module HasArchive
           self
         end
       end
-    EVAL
+    RUBY
   end
 
   module ClassMethods
