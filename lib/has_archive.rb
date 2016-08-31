@@ -30,17 +30,22 @@ module HasArchive
   end
 
   module InstanceMethods
-    def archive
+    def archive(force: false)
       archive = self.class::Archive.new(self.attributes)
       archive.archived_at = Time.now
       archive.save(validate: false)
       self.destroy(for_real: true)
     rescue ActiveRecord::RecordNotUnique => e
-      Rails.logger.warn "Rescued attempt to archive record with existing key: #{archive.id}."
-      false
+      if force
+        self.class::Archive.find(archive.id).destroy(for_real: true)
+        self.archive
+      else
+        Rails.logger.warn "Rescued attempt to archive record with existing key: #{archive.id}."
+        false
+      end
     end
 
-    def destroy(for_real: false)
+    def destroy(for_real: false, force: false)
       if !for_real && Rails.configuration.has_archive.override_destroy
         archive
       else
