@@ -11,6 +11,10 @@ module HasArchive
       class #{base}::Archive < #{base}
         self.table_name = "#{base.to_s.underscore}_archives"
 
+        def destroy
+          super(for_real: true)
+        end
+
         def restore
           attrs = self.attributes
           attrs.delete('archived_at')
