@@ -49,7 +49,7 @@ module HasArchive
 
     def destroy(for_real: false, force: false)
       if !for_real && Rails.configuration.has_archive.override_destroy
-        archive
+        archive(force: force)
       else
         super()
       end
