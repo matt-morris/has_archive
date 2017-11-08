@@ -36,7 +36,6 @@ module HasArchive
   module InstanceMethods
     def archive(force: false)
       attrs = self.attributes
-      attrs['original_id'] = attrs.delete('id')
       archive = self.class::Archive.new(attrs)
       archive.archived_at = Time.now
       archive.save(validate: false)

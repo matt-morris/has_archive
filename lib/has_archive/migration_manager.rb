@@ -12,7 +12,6 @@ class CreateArchiveFor#{@table_name.camelize} < ActiveRecord::Migration
   def change
     create_table :#{@table_name.singularize}_archives do |t|
 #{columns.map {|c| build_column(c) }.join("\n") }
-      t.integer     :original_id,    null: false
       t.datetime    :archived_at,    null: false
     end
 
