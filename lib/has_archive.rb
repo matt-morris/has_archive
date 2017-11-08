@@ -11,7 +11,7 @@ module HasArchive
       class #{base}::Archive < #{base}
         self.table_name = "#{base.to_s.underscore}_archives"
 
-        def destroy
+        def destroy(*args, **kwargs)
           super(for_real: true)
         end
 
@@ -42,7 +42,7 @@ module HasArchive
       self.destroy(for_real: true)
     rescue ActiveRecord::RecordNotUnique => e
       if force
-        self.class::Archive.where(id: archive.id).map {|a| a.destroy(for_real: true) }
+        self.class::Archive.where(id: archive.id).map(&:destroy)
         self.archive
       else
         Rails.logger.warn "Rescued attempt to archive record with existing key: #{archive.id}."
